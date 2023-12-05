@@ -1,0 +1,18 @@
+// 태스크에 대한 설정을 시작합니다.
+// 이 태스크는 Spring Boot의 실행 가능한 JAR 파일을 빌드하는 데 사용됩니다.
+bootJar {
+    enabled = false // bootJar 태스크를 비활성화합니다. 이는 기본적으로 활성화된 bootJar를 비활성화하므로, 실행 가능한 JAR 파일이 생성되지 않습니다.
+}
+
+// jar 태스크에 대한 설정을 시작합니다. 이 태스크는 일반적인 JAR 파일을 빌드하는 데 사용됩니다.
+jar {
+    enabled = true // jar 태스크를 활성화합니다. 이는 기본 JAR 파일을 빌드할 때 사용됩니다.
+}
+
+
+dependencies { //  의존성 설정 블록의 시작을 나타냅니다. 이 부분에서 프로젝트에 필요한 라이브러리 의존성을 선언합니다.
+
+    api('org.springframework.boot:spring-boot-starter-data-jpa')            //  의존성을 프로젝트에 추가합니다. 이는 Spring Data JPA와 관련된 기능을 사용하기 위한 필수 의존성입니다.
+    implementation group: 'org.mindrot', name: 'jbcrypt', version: '0.3m'   // jbcrypt 라이브러리를 프로젝트에 추가합니다. 이 라이브러리는 암호 해싱을 위해 사용됩니다.
+    runtimeOnly 'mysql:mysql-connector-java'                                // MySQL 데이터베이스 연결을 위한 JDBC 드라이버, mysql-connector-java를 런타임 의존성으로 추가합니다.
+}

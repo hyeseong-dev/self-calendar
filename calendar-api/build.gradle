@@ -1,0 +1,17 @@
+dependencies {
+    // 'spring-boot-starter-thymeleaf'는 Thymeleaf 템플릿 엔진을 위한 스타터입니다.
+    // Thymeleaf는 Spring Boot 웹 애플리케이션에서 HTML 템플릿을 렌더링하는데 사용됩니다.
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    // 'spring-boot-starter-web'는 Spring Boot 웹 애플리케이션 개발에 필요한 기본적인 의존성을 포함합니다.
+    // 이 스타터는 Spring MVC와 함께 Tomcat과 같은 내장 서버를 사용하여 웹 애플리케이션을 구축할 수 있게 해줍니다.
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // 'spring-boot-starter-mail'은 이메일 서비스를 구현하기 위한 의존성입니다.
+    // 이를 통해 JavaMailSender 인터페이스를 사용하여 메일 전송 기능을 구현할 수 있습니다.
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+    // 'spring-boot-starter-validation'은 Bean Validation API를 사용한 검증 로직을 위한 의존성입니다.
+    // 예를 들어, @Valid 어노테이션을 사용하여 객체의 유효성을 검증할 수 있습니다.
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+}
