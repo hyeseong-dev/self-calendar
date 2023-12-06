@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -18,7 +20,23 @@ public class Event {
     private String title;
     private String description;
     private User writer;
+    private LocalDateTime createdAt;
     private List<Engagement> engagements;
-    private LocalDate createdAt;
+
+    public Event(LocalDateTime startAt, LocalDateTime endAt, String title, String description, User writer, LocalDateTime createdAt) {
+        this.startAt = startAt;
+        this.endAt = endAt;
+        this.title = title;
+        this.description = description;
+        this.writer = writer;
+        this.createdAt = createdAt;
+    }
+
+    public void addEngagement(Engagement engagement) {
+        if (engagements == null) {
+            engagements = new ArrayList<>();
+        }
+        engagements.add(engagement);
+    }
 
 }
