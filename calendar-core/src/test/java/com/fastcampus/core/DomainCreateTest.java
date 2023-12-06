@@ -1,15 +1,13 @@
 package com.fastcampus.core;
 
-import com.fastcampus.core.domain.Engagement;
-import com.fastcampus.core.domain.Event;
-import com.fastcampus.core.domain.RequestStatus;
-import com.fastcampus.core.domain.User;
+import com.fastcampus.core.domain.ScheduleType;
+import com.fastcampus.core.domain.entity.Schedule;
+import com.fastcampus.core.domain.entity.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -18,12 +16,11 @@ public class DomainCreateTest {
     @DisplayName("이벤트 생성 - 약속 - 유저")
     @Test
     void eventCreate(){
-        final User writer = new User("writer", "email@email", "pw", LocalDate.now(), LocalDateTime.now());
-        final User attendee = new User("attendee", "email@email", "pw", LocalDate.now(), LocalDateTime.now());
-        final Event event = new Event(LocalDateTime.now(), LocalDateTime.now(), "title", "description", writer, LocalDateTime.now());
+        final User me = new User("meme", "email", "pw", LocalDate.now());
+        final Schedule taskSchedule = Schedule.task("할일", "청소하기", LocalDateTime.now(), me);
+        assertEquals(taskSchedule.getScheduleType(), ScheduleType.TASK);
+        assertEquals(taskSchedule.toTask().getTitle(), "할일");
 
-        event.addEngagement(new Engagement(event, attendee, LocalDateTime.now(), RequestStatus.REQUESTED));
-        assertEquals(event.getEngagements().get(0).getEvent().getWriter().getName(), "writer");
 
     }
 }

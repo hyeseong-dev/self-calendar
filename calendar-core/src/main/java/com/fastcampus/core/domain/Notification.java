@@ -1,17 +1,16 @@
 package com.fastcampus.core.domain;
 
+import com.fastcampus.core.domain.entity.Schedule;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
 public class Notification {
 
-    private Long id;
-    private LocalDateTime notifyAt;
-    private String title;
-    private User writer;
-    private LocalDateTime createdAt;
+    private Schedule schedule;
+
+    public Notification(Schedule schedule) {
+        this.schedule = schedule;
+    }
 }

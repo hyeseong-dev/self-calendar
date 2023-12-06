@@ -1,9 +1,9 @@
 package com.fastcampus.core.domain;
 
+import com.fastcampus.core.domain.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
