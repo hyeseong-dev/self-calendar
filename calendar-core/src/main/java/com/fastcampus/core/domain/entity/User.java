@@ -1,6 +1,7 @@
 package com.fastcampus.core.domain.entity;
 
 
+import com.fastcampus.core.util.Encryptor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,4 +27,7 @@ public class User extends BaseEntity{
         this.birthday = birthday;
     }
 
+    public boolean isMatch(Encryptor encryptor, String password) {
+        return encryptor.isMatch(password, this.password);
+    }
 }
