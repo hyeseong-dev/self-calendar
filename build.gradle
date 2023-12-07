@@ -13,7 +13,7 @@ buildscript {        // 'buildscript' 블록은 빌드 스크립트 자체를 �
 subprojects {   // 'subprojects' 블록은 모든 하위 프로젝트에 적용될 설정을 정의합니다.
 
     apply plugin: 'java-library'                        // Java 라이브러리 플러그인을 적용합니다. 이는 자바 라이브러리를 빌드하기 위한 기본 작업을 제공합니다.
-    apply plugin: 'org.springframework.boot'            // Spring Boot 플러그인을 적용합니다. 이는 Spring Boot 애플리케이션 빌드에 필요한 작업을 제공합니다.
+    apply plugin: 'org.springframework.boot'            // Spring Boot 플러그인을 적용합니다. 이는 Spring Boot 애플리z케이션 빌드에 필요한 작업을 제공합니다.
     apply plugin: 'io.spring.dependency-management'     // 의존성 관리 플러그인을 적용합니다. 이는 BOM(Bill of Materials)를 사용하여 의존성을 관리할 수 있게 합니다.
 
     group = 'com.fastcampus'         // 프로젝트의 그룹 ID를 설정합니다. 보통 역방향 도메인 이름을 사용합니다.

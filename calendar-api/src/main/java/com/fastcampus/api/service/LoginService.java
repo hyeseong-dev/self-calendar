@@ -16,11 +16,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class LoginService {
 
-    private final static String LOGIN_SESSION_KEY = "USER_ID";
+    public final static String LOGIN_SESSION_KEY = "USER_ID";
     private final UserService userService;
 
     @Transactional
-    private void signUp(SignUpReq signUpReq, HttpSession session){
+    public void signUp(SignUpReq signUpReq, HttpSession session){
         /**
          * - UserService에 Create를 담당한다.(이미 존재하는 경우의 유저 검증은 userService의 몫)
          * - 생성 : session에 담고 return
