@@ -17,7 +17,7 @@ import java.util.List;
 @EntityScan("com.fastcampus.core")
 @EnableJpaRepositories("com.fastcampus.core")
 @RestController
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.fastcampus")
 public class ApiApplication {
 
     private final SimpleEntityRepository repository;
