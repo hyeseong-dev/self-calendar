@@ -11,10 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
-
-import static com.fastcampus.api.service.LoginService.LOGIN_SESSION_KEY;
-
 @RequiredArgsConstructor
 @RequestMapping("/api/schedules")
 @RestController
@@ -25,13 +21,9 @@ public class ScheduleController {
     @PostMapping("/tasks")
     public ResponseEntity<Void> createTask(
             @RequestBody TaskCreateReq taskCreateReq,
-            HttpSession httpSession)
-    {
-        final Long userId = (Long) httpSession.getAttribute(LOGIN_SESSION_KEY);
-        if (userId == null){
-            throw new RuntimeException("bad request. no session");
-        }
-        taskService.create(taskCreateReq, AuthUser.of(userId));
+            AuthUser authUser
+    ){
+        taskService.create(taskCreateReq, authUser);
         return ResponseEntity.ok().build();
     }
 

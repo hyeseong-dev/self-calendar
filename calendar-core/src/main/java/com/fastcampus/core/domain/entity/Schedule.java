@@ -31,28 +31,30 @@ public class Schedule extends BaseEntity{
 
     public static Schedule task(String title, String description, LocalDateTime taskAt, User writer){
         return Schedule.builder()
+                .startAt(taskAt)
                 .title(title)
                 .description(description)
-                .startAt(taskAt)
+                .writer(writer)
                 .scheduleType(ScheduleType.TASK)
                 .build();
     }
 
     public static Schedule event(String title, String description, LocalDateTime startAt, LocalDateTime endAt, User writer){
         return Schedule.builder()
-                .title(title)
-                .description(description)
                 .startAt(startAt)
                 .endAt(endAt)
+                .title(title)
+                .description(description)
+                .writer(writer)
                 .scheduleType(ScheduleType.EVENT)
                 .build();
     }
 
-    public static Schedule notification(String title, String description, LocalDateTime notifyAt, User writer){
+    public static Schedule notification(String title, LocalDateTime notifyAt, User writer){
         return Schedule.builder()
-                .title(title)
-                .description(description)
                 .startAt(notifyAt)
+                .title(title)
+                .writer(writer)
                 .scheduleType(ScheduleType.NOTIFICATION)
                 .build();
     }

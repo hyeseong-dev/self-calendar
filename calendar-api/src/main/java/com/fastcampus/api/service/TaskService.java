@@ -19,7 +19,8 @@ public class TaskService {
                 taskCreateReq.getTitle(),
                 taskCreateReq.getDescription(),
                 taskCreateReq.getTaskAt(),
-                userService.getByUserIdOrThrow(authUser.getId()));
+                userService.getByUserIdOrThrow(authUser.getId())
+        );
         scheduleRepository.save(taskSchedule);
     }
 }
