@@ -1,14 +1,16 @@
 package com.fastcampus.core.domain.entity;
 
+import com.fastcampus.core.domain.Event;
 import com.fastcampus.core.domain.RequestStatus;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Table(name = "engagements")
@@ -23,6 +25,10 @@ public class Engagement extends BaseEntity{
     @JoinColumn(name = "attendee_id")
     @ManyToOne
     private User attendee;
+
+    @Enumerated(value = EnumType.STRING)
     private RequestStatus requestStatus;
+
+    public Event getEvent(){ return schedule.toEvent(); }
 
 }

@@ -2,6 +2,7 @@ package com.fastcampus.core.domain.entity;
 
 
 import com.fastcampus.core.util.Encryptor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDate;
 
+@Builder
 @Getter
 @NoArgsConstructor
 @Table(name="users")

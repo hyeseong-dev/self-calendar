@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @Service
@@ -38,8 +39,14 @@ public class UserService {
                 .map(user -> user.isMatch(encryptor, password) ? user : null);
     }
 
-    @Transactional
-    public User getByUserIdOrThrow(Long userId){
-        return userRepository.findById(userId).orElseThrow(() -> new RuntimeException("no user by id."));
+    public User getOrThrowById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("no user."));
     }
+
+    public User findByUserId(Long id){
+        return userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + id));
+
+    }
+
 }
