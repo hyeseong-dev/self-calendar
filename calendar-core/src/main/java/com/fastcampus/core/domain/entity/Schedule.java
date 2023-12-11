@@ -4,9 +4,11 @@ import com.fastcampus.core.domain.Event;
 import com.fastcampus.core.domain.Notification;
 import com.fastcampus.core.domain.ScheduleType;
 import com.fastcampus.core.domain.Task;
+import com.fastcampus.core.util.Period;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Builder(access = AccessLevel.PRIVATE)
@@ -69,5 +71,9 @@ public class Schedule extends BaseEntity{
 
     public Notification toNotification(){
         return new Notification(this);
+    }
+
+    public boolean isOverlapped(LocalDate date) {
+        return Period.of(this.getStartAt(), this.getEndAt()).isOverlapped(date);
     }
 }
