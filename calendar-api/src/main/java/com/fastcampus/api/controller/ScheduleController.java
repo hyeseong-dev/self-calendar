@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -58,5 +59,23 @@ public class ScheduleController {
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
     ){
         return scheduleQueryService.getScheduleByDay(authUser, date == null ? LocalDate.now() : date);
+    }
+
+    @GetMapping("/week")
+    public List<ScheduleDto> getScheduleByWeek(
+            AuthUser authUser,
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startOfWeek
+    ){
+        return scheduleQueryService.getScheduleByWeek(authUser, startOfWeek == null ? LocalDate.now() : startOfWeek);
+    }
+
+    @GetMapping("/month")
+    public List<ScheduleDto> getScheduleByDay(
+            AuthUser authUser,
+            @RequestParam(required = false)
+            @DateTimeFormat(pattern = "yyyy-mm") String yearMonth
+    ){
+        return scheduleQueryService.getScheduleByMonth(authUser, yearMonth == null ? YearMonth.now() : YearMonth.parse(yearMonth));
     }
 }

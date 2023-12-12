@@ -2,6 +2,7 @@ package com.fastcampus.core.domain.entity;
 
 import com.fastcampus.core.domain.Event;
 import com.fastcampus.core.domain.RequestStatus;
+import com.fastcampus.core.util.Period;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,5 +35,9 @@ public class Engagement extends BaseEntity{
 
     public boolean isOverlapped(LocalDate date) {
         return this.schedule.isOverlapped(date);
+    }
+
+    public boolean isOverlapped(Period period) {
+        return this.schedule.isOverlapped(period);
     }
 }
