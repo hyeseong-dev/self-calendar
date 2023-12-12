@@ -10,7 +10,11 @@ public class Period {
 
     public Period(LocalDateTime startAt, LocalDateTime endAt) {
         this.startAt = startAt;
-        this.endAt = endAt;
+        if (endAt == null){
+            this.endAt = startAt;
+        } else {
+            this.endAt = endAt;
+        }
     }
 
     public static Period of(LocalDateTime startAt, LocalDateTime endAt) {
@@ -18,8 +22,7 @@ public class Period {
     }
 
     public static Period of(LocalDate startAt, LocalDate endAt) {
-        return new Period(startAt.atStartOfDay(),
-                endAt == null ? startAt.atStartOfDay() : endAt.atStartOfDay());
+        return new Period(startAt.atStartOfDay(), endAt == null ? startAt.atStartOfDay() : endAt.atStartOfDay() );
     }
 
     public boolean isOverlapped(Period period) {

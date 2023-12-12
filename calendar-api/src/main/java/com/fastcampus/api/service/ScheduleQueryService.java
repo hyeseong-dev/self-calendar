@@ -24,21 +24,26 @@ public class ScheduleQueryService {
 
 
     public List<ScheduleDto> getScheduleByDay(AuthUser authUser, LocalDate date){
-        final Stream<ScheduleDto> schedules = scheduleRepository
-                                                .findAllByWriter_Id(authUser.getId())
-                                                .stream()
-                                                .filter(schedule -> schedule.isOverlapped(date))
-                                                .map(DtoConverter::fromSchedule);
+        Stream<ScheduleDto> schedules = getSchedulesStream(authUser, date);
+        Stream<ScheduleDto> engagements = getEngagementsStream(authUser, date);
 
-        final List<ScheduleDto> engagements = engagementRepository
-                                                .findAllByAttendee_Id(authUser.getId())
-                                                .stream()
-                                                .filter(engagement -> engagement.isOverlapped(date))
-                                                .map(engagement -> DtoConverter.fromSchedule(engagement.getSchedule()));
+        return Stream.concat(schedules, engagements).collect(Collectors.toList());
+    }
 
-        return Stream
-                .concat(schedules, engagements)
-                .collect(Collectors.toList());
+    private Stream<ScheduleDto> getSchedulesStream(AuthUser authUser, LocalDate date) {
+        return scheduleRepository
+                .findAllByWriter_Id(authUser.getId())
+                .stream()
+                .filter(schedule -> schedule.isOverlapped(date))
+                .map(DtoConverter::fromSchedule);
+    }
+
+    private Stream<ScheduleDto> getEngagementsStream(AuthUser authUser, LocalDate date) {
+        return engagementRepository
+                .findAllByAttendee_Id(authUser.getId())
+                .stream()
+                .filter(engagement -> engagement.isOverlapped(date))
+                .map(engagement -> DtoConverter.fromSchedule(engagement.getSchedule()));
     }
 }
 

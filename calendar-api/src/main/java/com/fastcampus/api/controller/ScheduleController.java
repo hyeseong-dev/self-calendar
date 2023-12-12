@@ -57,6 +57,6 @@ public class ScheduleController {
             @RequestParam(required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
     ){
-        return scheduleQueryServiceService.getScheduleByDay(authUser, date == null ? LocalDate.now() : date);
+        return scheduleQueryService.getScheduleByDay(authUser, date == null ? LocalDate.now() : date);
     }
 }
