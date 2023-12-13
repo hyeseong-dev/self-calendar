@@ -71,7 +71,7 @@ public class ScheduleController {
     }
 
     @GetMapping("/month")
-    public List<ScheduleDto> getScheduleByDay(
+    public List<ScheduleDto> getScheduleByMonth(
             AuthUser authUser,
             @RequestParam(required = false)
             @DateTimeFormat(pattern = "yyyy-mm") String yearMonth
