@@ -37,7 +37,8 @@ public class ScheduleQueryService {
      * @return 해당 날짜에 대한 ScheduleDto 객체 목록입니다.
      */
     public List<ScheduleDto> getScheduleByDay(AuthUser authUser, LocalDate date) {
-        return getScheduleByPeriod(authUser, Period.of(date, date));
+        final Period period = Period.of(date, date);
+        return getScheduleByPeriod(authUser, period);
     }
 
     /**
@@ -49,7 +50,8 @@ public class ScheduleQueryService {
      * @return 해당 주에 대한 ScheduleDto 객체 목록입니다.
      */
     public List<ScheduleDto> getScheduleByWeek(AuthUser authUser, LocalDate startOfWeek) {
-        return getScheduleByPeriod(authUser, Period.of(startOfWeek, startOfWeek.plusDays(6)));
+        final Period period = Period.of(startOfWeek, startOfWeek.plusDays(6));
+        return getScheduleByPeriod(authUser, period);
     }
 
     /**
@@ -61,7 +63,8 @@ public class ScheduleQueryService {
      * @return 해당 달에 대한 ScheduleDto 객체 목록입니다.
      */
     public List<ScheduleDto> getScheduleByMonth(AuthUser authUser, YearMonth yearMonth) {
-        return getScheduleByPeriod(authUser, Period.of(yearMonth.atDay(1), yearMonth.atEndOfMonth()));
+        final Period period = Period.of(yearMonth.atDay(1), yearMonth.atEndOfMonth());
+        return getScheduleByPeriod(authUser, period);
     }
 
     /**
