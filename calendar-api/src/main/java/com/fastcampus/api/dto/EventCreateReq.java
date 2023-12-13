@@ -38,8 +38,7 @@ public class EventCreateReq {
     private final LocalDateTime endAt;
 
     /**
-     * 이벤트에 참석할 사용자들의 ID 목록입니다. null이 아니어야 합니다.
+     * 이벤트에 참석할 사용자들의 ID 목록입니다.null일 수 있습니다.
      */
-    @NotNull
     private final List<Long> attendeeIds;
 }
