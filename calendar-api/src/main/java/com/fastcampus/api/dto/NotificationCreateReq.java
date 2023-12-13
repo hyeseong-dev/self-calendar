@@ -1,5 +1,7 @@
 package com.fastcampus.api.dto;
 
+import com.fastcampus.core.exception.CalendarException;
+import com.fastcampus.core.exception.ErrorCode;
 import com.fastcampus.core.util.TimeUnit;
 import lombok.Data;
 
@@ -47,7 +49,7 @@ public class NotificationCreateReq {
             return Collections.singletonList(notifyAt);
         }
         if (repeatInfo.interval == null || repeatInfo.interval.timeUnit == null) {
-            throw new RuntimeException("bad request. not match time unit");
+            throw new CalendarException(ErrorCode.BAD_REQUEST);
         }
 
         return IntStream.range(0, repeatInfo.times)
