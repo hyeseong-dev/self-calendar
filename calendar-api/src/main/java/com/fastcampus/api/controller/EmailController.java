@@ -11,7 +11,7 @@ import javax.mail.internet.MimeMessage;
 
 @RequiredArgsConstructor
 @RestController
-public class TestController {
+public class EmailController {
     private final JavaMailSender emailSender;
 
     @GetMapping("/api/mail")
