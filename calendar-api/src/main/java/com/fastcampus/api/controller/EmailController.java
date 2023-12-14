@@ -4,10 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
@@ -15,12 +15,12 @@ import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class EmailController {
     private final JavaMailSender emailSender;
 
     @GetMapping("/api/mail")
-    public @ResponseBody void sendTestMail(){
+    public void sendTestMail(){
         final MimeMessagePreparator preparator = (MimeMessage message) ->{
             final MimeMessageHelper helper = new MimeMessageHelper(message);
             helper.setTo("lhs4859@naver.com");
@@ -31,17 +31,18 @@ public class EmailController {
     }
 
     @GetMapping("test/template")
-    public String testTemplate(Model model){
+    public ModelAndView testTemplate(Model model){
         final Map<String, Object> props = new HashMap<>();
-        props.put("title", "타이틀입니다!");
-        props.put("calendar", "sample@gmail.com!");
-        props.put("period", "언제부터 언제까지");
-        props.put("attendees", List.of("test3@mail.io",
+        ModelAndView modelAndView = new ModelAndView("engagement-email");
+        modelAndView.addObject("title", "타이틀입니다!");
+        modelAndView.addObject("calendar", "sample@gmail.com!");
+        modelAndView.addObject("period", "언제부터 언제까지");
+        modelAndView.addObject("attendees", List.of("test3@mail.io",
                                         "test2@mail.io",
                                         "test1@mail.io"));
-        props.put("acceptUrl", "http://localhost:8080");
-        props.put("rejectUrl", "http://localhost:8080");
-        model.addAllAttributes(props);
-        return "engagement-email";
+        modelAndView.addObject("acceptUrl", "http://localhost:8080");
+        modelAndView.addObject("rejectUrl", "http://localhost:8080");
+
+        return modelAndView;
     }
 }
