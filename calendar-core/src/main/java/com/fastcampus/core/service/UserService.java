@@ -3,6 +3,8 @@ package com.fastcampus.core.service;
 import com.fastcampus.core.domain.entity.User;
 import com.fastcampus.core.domain.entity.repository.UserRepository;
 import com.fastcampus.core.dto.UserCreateReq;
+import com.fastcampus.core.exception.CalendarException;
+import com.fastcampus.core.exception.ErrorCode;
 import com.fastcampus.core.util.Encryptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +24,7 @@ public class UserService {
     public User create(UserCreateReq userCreateReq) {
         userRepository.findByEmail(userCreateReq.getEmail())
                 .ifPresent(u -> {
-                    throw new RuntimeException("user already existed!");
+                    throw new CalendarException(ErrorCode.USER_NOT_FOUND);
                 });
 
         return userRepository.save(new User(
@@ -40,7 +42,7 @@ public class UserService {
     }
 
     public User getOrThrowById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("no user."));
+        return userRepository.findById(id).orElseThrow(() -> new CalendarException(ErrorCode.USER_NOT_FOUND));
     }
 
     public User findByUserId(Long id){

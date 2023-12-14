@@ -5,6 +5,8 @@ import com.fastcampus.api.dto.NotificationDto;
 import com.fastcampus.api.dto.ScheduleDto;
 import com.fastcampus.api.dto.TaskDto;
 import com.fastcampus.core.domain.entity.Schedule;
+import com.fastcampus.core.exception.CalendarException;
+import com.fastcampus.core.exception.ErrorCode;
 
 public abstract class DtoConverter {
     public static ScheduleDto fromSchedule(Schedule schedule){
@@ -34,7 +36,7 @@ public abstract class DtoConverter {
                         .title(schedule.getTitle())
                         .build();
             default:
-                throw new RuntimeException("bad request. not matched schedule type");
+                throw new CalendarException(ErrorCode.BAD_REQUEST);
 
         }
     }
