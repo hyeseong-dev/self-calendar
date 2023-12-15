@@ -1,7 +1,7 @@
 package com.fastcampus.api.service;
 
-import com.fastcampus.core.domain.entity.Engagement;
+import com.fastcampus.api.dto.EngagementEmailStuff;
 
 public interface EmailService {
-    void sendEngagement(Engagement engagement);
+    void sendEngagement(EngagementEmailStuff stuff);
 }

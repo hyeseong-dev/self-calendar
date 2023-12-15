@@ -12,3 +12,7 @@ dependencies {
     // 'testImplementation' 스코프는 테스트 시에만 이 의존성이 필요함을 의미합니다.
     testImplementation 'org.springframework.batch:spring-batch-test'
 }
+
+bootJar {
+    enabled = false
+}

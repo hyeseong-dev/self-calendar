@@ -1,6 +1,7 @@
 package com.fastcampus.api.service;
 
 import com.fastcampus.api.dto.AuthUser;
+import com.fastcampus.api.dto.EngagementEmailStuff;
 import com.fastcampus.api.dto.EventCreateReq;
 import com.fastcampus.core.domain.RequestStatus;
 import com.fastcampus.core.domain.entity.Engagement;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +26,7 @@ public class EventService {
     private final UserService userService;
     private final ScheduleRepository scheduleRepository;
     private final EngagementRepository engagementRepository;
+
 
     public void create(EventCreateReq eventCreateReq, AuthUser authUser) {
         // event 참여자의 다른 이벤트와 중복이 되면 안된다.
@@ -47,15 +50,27 @@ public class EventService {
         );
 
         scheduleRepository.save(eventSchedule);
-        eventCreateReq.getAttendeeIds().forEach(atId ->{
-                                                        final User attendee = userService.findByUserId(atId);
-                                                        final Engagement engagement = Engagement.builder()
-                                                                                                .schedule(eventSchedule)
-                                                                                                .requestStatus(RequestStatus.REQUESTED)
-                                                                                                .attendee(attendee)
-                                                                                                .build();
-                                                        engagementRepository.save(engagement);
-                                                        emailService.sendEngagement(engagement);
+        final List<User> attendees = eventCreateReq.getAttendeeIds().stream()
+                                                   .map(userService::findByUserId)
+                                                           .collect(Collectors.toList());
+
+        attendees.forEach(attendee ->{
+            final Engagement engagement = Engagement.builder()
+                                                    .schedule(eventSchedule)
+                                                    .requestStatus(RequestStatus.REQUESTED)
+                                                    .attendee(attendee)
+                                                    .build();
+            engagementRepository.save(engagement);
+            emailService.sendEngagement(EngagementEmailStuff.builder()
+                                                            .engagementId(engagement.getId())
+                                                            .title(engagement.getEvent().getTitle())
+                                                            .toEmail(engagement.getAttendee().getEmail())
+                                                            .attendeeEmails(attendees.stream()
+                                                                    .map(User::getEmail)
+                                                                    .collect(Collectors.toList()))
+                                                            .period(engagement.getEvent().getPeriod())
+                                                            .build()
+            );
         });
     }
 }
