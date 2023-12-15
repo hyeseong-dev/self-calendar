@@ -33,7 +33,7 @@ public class EmailController {
     @GetMapping("test/template")
     public ModelAndView testTemplate(Model model){
         final Map<String, Object> props = new HashMap<>();
-        ModelAndView modelAndView = new ModelAndView("engagement-email");
+        ModelAndView modelAndView = new ModelAndView("engagement-email"  );
         modelAndView.addObject("title", "타이틀입니다!");
         modelAndView.addObject("calendar", "sample@gmail.com!");
         modelAndView.addObject("period", "언제부터 언제까지");
