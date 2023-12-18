@@ -34,12 +34,13 @@ public class EventService {
         // 추가로 이메일 발송..?
 
         final List<Engagement> engagementList = engagementRepository.findAll(); // TODO findAll 개선
-        if (engagementList.stream()
-                .anyMatch(e -> eventCreateReq.getAttendeeIds().contains(e.getAttendee().getId())
+        if (engagementList.stream().anyMatch(
+                        e -> eventCreateReq.getAttendeeIds().contains(e.getAttendee().getId())
                         && e.getRequestStatus() == RequestStatus.ACCEPTED
                         && e.getEvent().isOverlapped(eventCreateReq.getStartAt(), eventCreateReq.getEndAt())
-            )) {
-            throw new CalendarException(ErrorCode.EVENT_CREATE_OVERLAPPED_PERIOD);
+                        )
+            ) {
+                throw new CalendarException(ErrorCode.EVENT_CREATE_OVERLAPPED_PERIOD);
         }
         final Schedule eventSchedule = Schedule.event(
                 eventCreateReq.getTitle(),
@@ -52,7 +53,7 @@ public class EventService {
         scheduleRepository.save(eventSchedule);
         final List<User> attendees = eventCreateReq.getAttendeeIds().stream()
                                                    .map(userService::findByUserId)
-                                                           .collect(Collectors.toList());
+                                                   .collect(Collectors.toList());
 
         attendees.forEach(attendee ->{
             final Engagement engagement = Engagement.builder()
@@ -61,16 +62,18 @@ public class EventService {
                                                     .attendee(attendee)
                                                     .build();
             engagementRepository.save(engagement);
-            emailService.sendEngagement(EngagementEmailStuff.builder()
-                                                            .engagementId(engagement.getId())
-                                                            .title(engagement.getEvent().getTitle())
-                                                            .toEmail(engagement.getAttendee().getEmail())
-                                                            .attendeeEmails(attendees.stream()
-                                                                    .map(User::getEmail)
-                                                                    .collect(Collectors.toList()))
-                                                            .period(engagement.getEvent().getPeriod())
-                                                            .build()
-            );
-        });
+            emailService.sendEngagement(
+                    EngagementEmailStuff
+                        .builder()
+                        .engagementId(engagement.getId())
+                        .title(engagement.getEvent().getTitle())
+                        .toEmail(engagement.getAttendee().getEmail())
+                        .attendeeEmails(attendees.stream()
+                                .map(User::getEmail)
+                                .collect(Collectors.toList()))
+                        .period(engagement.getEvent().getPeriod())
+                        .build()
+                    );
+            });
     }
 }
