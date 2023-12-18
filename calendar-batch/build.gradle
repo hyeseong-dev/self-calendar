@@ -1,18 +1,6 @@
 dependencies {
-    // 'spring-boot-starter-web'는 Spring Boot 웹 애플리케이션 개발을 위한 기본적인 의존성을 제공합니다.
-    // 이 스타터는 Spring MVC, RESTful 애플리케이션 개발, 내장 서버 지원(Tomcat 등) 등을 포함합니다.
+
     implementation 'org.springframework.boot:spring-boot-starter-web'
-
-    // 'spring-boot-starter-batch'는 Spring Batch 기능을 사용할 수 있게 해주는 스타터입니다.
-    // Spring Batch는 대규모 데이터 처리에 적합한 배치 작업(예: 파일 읽기, 데이터베이스 처리, 통계 작업)을 위한 프레임워크입니다.
     implementation 'org.springframework.boot:spring-boot-starter-batch'
-
-    // 'spring-batch-test'는 Spring Batch 애플리케이션을 테스트하기 위한 의존성입니다.
-    // 이 라이브러리를 사용하여 배치 작업의 다양한 측면(예: Job 실행, Step 흐름)을 테스트할 수 있습니다.
-    // 'testImplementation' 스코프는 테스트 시에만 이 의존성이 필요함을 의미합니다.
     testImplementation 'org.springframework.batch:spring-batch-test'
-}
-
-bootJar {
-    enabled = false
 }
